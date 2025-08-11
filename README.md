@@ -6,11 +6,16 @@ Prints out the answers in a list format
 
 ## Prerequsites
 1. Install Python
-\nsudo apt update
-\nsudo apt install python3 python3-pip
+
+sudo apt update
+
+sudo apt install python3 python3-pip
+
 2. Install Tesseract-OCR
-\nsudo apt update
-\nsudo apt install tesseract-ocr
+
+sudo apt update
+
+sudo apt install tesseract-ocr
 
 ## Installation
 1. Clone this repository:
