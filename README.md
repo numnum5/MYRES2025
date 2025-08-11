@@ -6,9 +6,9 @@ Prints out the answers in a list format
 
 ## Installation
 1. Clone this repository:
-git clone https://github.com/yourusername/mc-exam-tool.git
-cd mc-exam-tool
-2. Install dependencies:
+git clone https://github.com/numnum5/MYRES2025.git
+cd MYRES2025
+3. Install dependencies:
 pip install -r requirements.txt
 
 ## Usage
