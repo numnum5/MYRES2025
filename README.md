@@ -17,6 +17,11 @@ sudo apt update
 
 sudo apt install tesseract-ocr
 
+3. Install Poppler
+
+sudo apt update
+sudo apt install poppler-utils
+
 ## Installation
 1. Clone this repository:
 git clone https://github.com/numnum5/MYRES2025.git
