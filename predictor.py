@@ -42,11 +42,17 @@ class Predictor:
     # If there are two crossed out circles we check the letter on the left region of ROI
     def predictAnswer(self, filled, left_part):
         gray = cv2.cvtColor(left_part, cv2.COLOR_BGR2GRAY)
-        blurred = cv2.GaussianBlur(gray, (5, 5), 0)
-
+        cropped = gray[5:-5, :]
+        blurred = cv2.GaussianBlur(cropped, (5, 5), 0)
+        
+        # cv2.imshow("Detected Circles (Scaled Display)", cropped)
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
         # Configure pytesseract to detect characters ABCDE only
         text = pytesseract.image_to_string(blurred, config="--psm 10 -c tessedit_char_whitelist=ABCDE").strip()
+        # print(text)
         if text and len(text) == 1 and text in ['A', 'B', 'C', 'D', 'E']:
+            # print(text)
             return text
 
 
