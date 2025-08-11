@@ -20,6 +20,7 @@ sudo apt install tesseract-ocr
 3. Install Poppler
 
 sudo apt update
+
 sudo apt install poppler-utils
 
 ## Installation
