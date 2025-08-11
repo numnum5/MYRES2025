@@ -239,7 +239,7 @@ class Extractor:
 
             # Find hough circles
             detected_circles = cv2.HoughCircles(
-                gray,
+                blurred,
                 cv2.HOUGH_GRADIENT,
                 dp=1,
                 minDist=15,       
