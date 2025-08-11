@@ -4,10 +4,15 @@
 Takes a PDF scan of the exam sheet which can be 1 to 2 pages long depending on the number of questions being marked.
 Prints out the answers in a list format
 
+## Prerequsites
+1. Install Python
+sudo apt update
+sudo apt install python3 python3-pip
+
 ## Installation
 1. Clone this repository:
 git clone https://github.com/numnum5/MYRES2025.git
-cd MYRES2025
+2. cd MYRES2025
 3. Install dependencies:
 pip install -r requirements.txt
 
