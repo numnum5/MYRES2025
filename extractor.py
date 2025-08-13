@@ -224,22 +224,13 @@ class Extractor:
 
             # Filter contours
             final_contours = self.filter_contours(cnts)
-            # final_contours = []
-            # for cnt in cnts:
-            #     area = cv2.contourArea(cnt)
-            #     if 800 < area:
-            #         (x, y), radius = cv2.minEnclosingCircle(cnt)
-            #         final_contours.append(np.array([x, y, radius]))
-
-
-            # final_contours = np.int32(np.around(final_contours))
 
             # Filter contours based on Y thresholds
             filtered_contours = [pt for pt in final_contours if (vertical_threshold_min < pt[1] < vertical_threshold_max)]
 
             # Find hough circles
             detected_circles = cv2.HoughCircles(
-                gray,
+                blurred,
                 cv2.HOUGH_GRADIENT,
                 dp=1,
                 minDist=15,       
@@ -301,40 +292,33 @@ class Extractor:
                 final = self.fill_missing_bubbles(filtered_data)
                 final.sort(key=lambda g: g[0][1])
                 valid_groups = self.filter_valid_groups(final)
-                
-                # output2 = img.copy()
 
-                # counter = 0
-                # for row in valid_groups:
 
-                #     for (x, y, radius) in row:
-                #         center = (int(x), int(y))
-                #         radius = int(radius)
-                #         counter+=1
-                #         cv2.circle(output2, center, radius, (0, 0, 255), 2) 
-                # # Show the result
+                # output = img.copy()
+                # for v in valid_groups:
+                #     for c in v:
+                #         x, y, r = c
+                #         cv2.circle(output, (x, y), r, (0, 255, 0), 2)   # green circle
+                #         cv2.circle(output, (x, y), 2, (0, 0, 255), 3)    # red center dot
 
-                # # cv2.drawContours(output2, cnts, -1, (0, 255, 0), 2)
                 # display_scale = 0.2
                 # display_width = int(img.shape[1] * display_scale)
                 # display_height = int(img.shape[0] * display_scale)
                 # display_dim = (display_width, display_height)
 
-                # # Resize for display only
-                # display_img = cv2.resize(output2, display_dim, interpolation=cv2.INTER_AREA)
+                # # Resize the output image (with drawings) for display
+                # display_img = cv2.resize(output, display_dim, interpolation=cv2.INTER_AREA)
 
-
-                #     # cropped_images = crop_question_regions(img, data)
-
-                # cv2.imshow("Detected Circles (Scaled Display)", display_img)
+                # cv2.imshow("Detected Circles (Scaled Display)", display_img)  # show the drawn circles image
                 # cv2.waitKey(0)
                 # cv2.destroyAllWindows()
+
 
                 bubble_grid = self.group_by_columns(valid_groups)
                 
                 cropped_images = self.crop_question_regions(img, bubble_grid)
 
-
+                
                 prefix = 1
                 if page_number + 1 > 1:
                     prefix = 41

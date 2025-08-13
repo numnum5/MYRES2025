@@ -3,7 +3,8 @@ import argparse
 from converter import Converter
 from extractor import Extractor
 from predictor import Predictor
-
+from detailExtractor import DetailExtractor
+from detailPredictor import DetailPredictor
 def main():
     # CLI argument parser
     parser = argparse.ArgumentParser(description="Process a PDF and predict answers.")
@@ -33,9 +34,28 @@ def main():
             if page_number + 1 > 1: 
                 converter.align_to_template(output_path, output_path, page_number + 1, 800)
             else:
-                converter.align_to_template(output_path, output_path, page_number + 1, good_match_percent=0.15)
+                converter.align_to_template(output_path, output_path, page_number + 1, good_match_percent=0.12)
     else:
         converter.align_to_template(output_paths, output_paths, 1)
+
+
+
+
+    # Dictionary to store final output
+    answers = {
+        
+    }
+
+    # Extract student details from the first page
+    detailExtractor = DetailExtractor(os.path.join(output_dir, "page1.png"))
+    detailExtractor.extract()
+    detailPredictor = DetailPredictor(os.path.join(base_dir, 'student_number'))
+    answers['student_number'] = detailPredictor.predict_student_number()
+    detailPredictor = DetailPredictor(os.path.join(base_dir, 'initials'))
+    answers['initials'] = detailPredictor.predict_initials()
+    detailPredictor = DetailPredictor(os.path.join(base_dir, 'surname'))
+    answers['surname'] = detailPredictor.predict_initials()
+    
 
     # Extraction
     extractor = Extractor(output_dir, number_of_pages)
@@ -43,7 +63,7 @@ def main():
 
     # Prediction
     predictor = Predictor(questions_dir, number_of_questions)
-    answers = predictor.predict()
+    answers['questions'] = predictor.predict()
 
     print("Predicted Answers:", answers)
 
