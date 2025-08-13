@@ -64,6 +64,7 @@ class Predictor:
         # print(text)
         if text and len(text) == 1 and text in ['A', 'B', 'C', 'D', 'E']:
             # print(text)
+            # print(text)
             return text
 
 
